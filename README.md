@@ -7,9 +7,9 @@ Estudo curso da udemy
 - [x] Adicionando dependencias JPA no projeto
 - [x] Adicionando dependencias MySQL
 - [x] Adicionando dependencias do H2 
-- [ ] Configurando a application.properties
-- [ ] JPA (entity)
-- [ ] JPA (JpaRepository)
+- [x] Configurando a application.properties
+- [x] JPA (entity)
+- [x] JPA (JpaRepository)
 - [ ] Versionamento de banco de dados com o Flyway
 - [ ] Configurando um pool de conexões de banco de dados com Hikari
 - [ ] Criando serviços (service)

@@ -5,8 +5,8 @@ Estudo curso da udemy
 
 - [x] Gerando o arquivo SpringBoot
 - [x] Adicionando dependencias JPA no projeto
-- [ ] Adicionando dependencias MySQL
-- [ ] Adicionando dependencias do H2 
+- [x] Adicionando dependencias MySQL
+- [x] Adicionando dependencias do H2 
 - [ ] Configurando a application.properties
 - [ ] JPA (entity)
 - [ ] JPA (JpaRepository)

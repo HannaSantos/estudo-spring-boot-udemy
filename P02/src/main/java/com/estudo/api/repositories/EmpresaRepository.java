@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
-
     List<Empresa> findByCnpj(String cnpj);
 }

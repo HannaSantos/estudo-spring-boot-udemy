@@ -10,12 +10,13 @@ Estudo curso da udemy
 - [x] Configurando a application.properties
 - [x] JPA (entity)
 - [x] JPA (JpaRepository)
-- [ ] Versionamento de banco de dados com o Flyway
-- [ ] Configurando um pool de conexões de banco de dados com Hikari
-- [ ] Criando serviços (service)
-- [ ] Criando controllers (controller)
-- [ ] DTO (Data Transfer Object)
-- [ ] Aplicando validação (validation)
+- [x] Versionamento de banco de dados com o Flyway
+- [x] Configurando um pool de conexões de banco de dados com Hikari
+- [x] Criando serviços (service)
+- [x] Criando controllers (controller)
+- [x] DTO (Data Transfer Object)
+- [x] Response (classe encapusulando o retorno de uma chamada)
+- [x] Aplicando validação (validation)
 - [ ] Documentando api com Swagger
 - [ ] Autenticação dom token JWT(Json Web Token)
 - [ ] Monitorando JVM com VisualVM

@@ -17,6 +17,7 @@ Estudo curso da udemy
 - [x] DTO (Data Transfer Object)
 - [x] Response (classe encapusulando o retorno de uma chamada)
 - [x] Aplicando validação (validation)
-- [ ] Documentando api com Swagger
+- [x] Documentando api com Swagger
+- [x] versionamento
 - [ ] Autenticação dom token JWT(Json Web Token)
 - [ ] Monitorando JVM com VisualVM

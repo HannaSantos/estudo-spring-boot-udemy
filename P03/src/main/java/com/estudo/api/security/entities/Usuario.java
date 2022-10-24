@@ -1,12 +1,13 @@
 package com.estudo.api.security.entities;
 
-import com.estudo.api.security.enums.PerfilEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
+import com.estudo.api.security.enums.*;
 
 @Entity
 @Table(name = "usuario")

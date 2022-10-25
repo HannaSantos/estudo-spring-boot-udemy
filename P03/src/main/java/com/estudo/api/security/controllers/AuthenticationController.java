@@ -7,6 +7,7 @@ import com.estudo.api.response.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,10 +31,10 @@ public class AuthenticationController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
     private static final String TOKEN_HEADER = "Authorization";
-    private static final String BEARER_PREFIX = "Bearer";
+    private static final String BEARER_PREFIX = "Bearer ";
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+//    @Autowired
+//    AuthenticationManager authenticationManager;
 
     @Autowired
     JwtTokenUtil jwtTokenUtil;
@@ -51,25 +52,25 @@ public class AuthenticationController {
      */
     @PostMapping
     public ResponseEntity<Response<TokenDto>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDto authenticationDto,
-                                                                              BindingResult result) throws AuthenticationException {
+                                                            BindingResult result) throws AuthenticationException {
         Response<TokenDto> response = new Response<TokenDto>();
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             log.error("Erro validando lançamento: {}", result.getAllErrors());
             result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.badRequest().body(response);
         }
 
         log.info("Gerando token para o email {}.", authenticationDto.getEmail());
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationDto.getEmail(), authenticationDto.getSenha()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(authenticationDto.getEmail(), authenticationDto.getSenha()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDto.getEmail());
         String token = jwtTokenUtil.obterToken(userDetails);
         response.setData(new TokenDto(token));
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok(response);
     }
 
 
@@ -80,26 +81,28 @@ public class AuthenticationController {
      * @return ResponseEntity<Response<TokenDto>>
      */
     @PostMapping(value = "/refresh")
-    public ResponseEntity<Response<TokenDto>>  gerandoRefreshTokenJwt(@RequestBody HttpServletRequest request) {
-        log.info("Gerando refresh token JWT");
+    public ResponseEntity<Response<TokenDto>> gerarRefreshTokenJwt(HttpServletRequest request) {
+        log.info("Gerando refresh token JWT.");
         Response<TokenDto> response = new Response<TokenDto>();
-        Optional<String> token = Optional.ofNullable(request.getHeader((TOKEN_HEADER)));
+        Optional<String> token = Optional.ofNullable(request.getHeader(TOKEN_HEADER));
 
-        if (token.isPresent() && token.get().startsWith(BEARER_PREFIX)){
+        if (token.isPresent() && token.get().startsWith(BEARER_PREFIX)) {
             token = Optional.of(token.get().substring(7));
         }
-        if (!token.isPresent()){
+
+        if (!token.isPresent()) {
             response.getErrors().add("Token não informado.");
+        } else if (!jwtTokenUtil.tokenValido(token.get())) {
+            response.getErrors().add("Token inválido ou expirado.");
         }
-        else if (!jwtTokenUtil.tokenValido(token.get())) {
-            response.getErrors().add("Token invalido ou expirado...");
+
+        if (!response.getErrors().isEmpty()) {
+            return ResponseEntity.badRequest().body(response);
         }
-        if (!response.getErrors().isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+
         String refreshedToken = jwtTokenUtil.refreshToken(token.get());
         response.setData(new TokenDto(refreshedToken));
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok(response);
     }
 }

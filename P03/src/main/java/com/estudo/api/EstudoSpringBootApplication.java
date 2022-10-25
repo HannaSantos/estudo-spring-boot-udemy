@@ -1,7 +1,9 @@
 package com.estudo.api;
 
 import com.estudo.api.security.entities.Usuario;
+import com.estudo.api.security.enums.PerfilEnum;
 import com.estudo.api.security.repositories.UsuarioRepository;
+import com.estudo.api.utils.SenhaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,7 +34,7 @@ public class EstudoSpringBootApplication {
 			admin.setPerfil(PerfilEnum.ROLE_ADMIN);
 			admin.setSenha(SenhaUtils.gerarBCrypt("123456"));
 			this.usuarioRepository.save(admin);
-		}
+		};
 	}
 
 }

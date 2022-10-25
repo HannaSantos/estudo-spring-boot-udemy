@@ -19,5 +19,7 @@ Estudo curso da udemy
 - [x] Aplicando validação (validation)
 - [x] Documentando api com Swagger
 - [x] versionamento
-- [ ] Autenticação dom token JWT(Json Web Token)
+- [x] Autenticação dom token JWT(Json Web Token)
+- [x] Adicionando cache com EhCache
+- [ ] teste de stresse e perfomance com o Apache AB
 - [ ] Monitorando JVM com VisualVM
